@@ -3,6 +3,28 @@ pub enum TaskStatus{
     DONE,
     PENDING
 }
+#[derive(Debug)]
+pub enum UserStatus {
+    ACTIVE,
+    INACTIVE
+}
+impl UserStatus{
+    pub fn to_string(&self) -> String{
+        match self{
+            &Self::ACTIVE => "ACTIVE".to_string(),
+            &Self::INACTIVE => "INACTIVE".to_string()
+        }
+    }
+
+}
+impl fmt::Display for UserStatus{
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        match &self {
+            UserStatus::ACTIVE => {write!(f, "ACTIVE")}
+            UserStatus::INACTIVE => {write!(f, "INACTIVE")}
+        }
+    }
+}
 impl TaskStatus{
     pub fn to_string(&self) -> String{
         match self{
