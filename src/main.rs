@@ -1,49 +1,35 @@
 use crate::to_do::enums::{ProductStatus, TaskStatus, UserStatus};
 use crate::to_do::{product_factory, to_do_factory, user_type_factory, ItemTypes, ProductStatusTypes, UserTypes};
 use crate::to_do::enums::ProductStatus::AVAILABLE;
-
+use crate::to_do::traits::get::Get;
+use crate::to_do::traits::delete::Delete;
+use crate::to_do::traits::edit::Edit;
 pub mod to_do;
+mod state;
 
 fn main() {
-    let to_do_item = to_do_factory("Buy milk", TaskStatus::DONE);
-
-    match to_do_item {
-        ItemTypes::Pending(item) => {
-            println!("Item status: {}", item.super_struct.status);
-            println!("Item title: {}", item.super_struct.title);
-        }
+    let to_do_items = to_do_factory("washing",
+                                    TaskStatus::DONE);
+    match to_do_items {
         ItemTypes::Done(item) => {
-            println!("Item status: {}", item.super_struct.status);
-            println!("Item title: {}", item.super_struct.title);
+            item.get(&item.super_struct.title);
+            item.delete(&item.super_struct.title);
+        }
+        ItemTypes::Pending(item) => {
+            item.get(&item.super_struct.title);
+            item.set_to_done(&item.super_struct.title);
         }
     }
-
-    let user_items = user_type_factory("Abduqodir", UserStatus::ACTIVE);
+    let users = user_type_factory("John Doe", UserStatus::ACTIVE);
     
-    match user_items {
+    match users {
         UserTypes::Active(item) => {
-            println!("User status: {}", item.super_struct.status);
-            println!("User name: {}", item.super_struct.name);
+            item.get(&item.super_struct.name);
+            item.delete(&item.super_struct.name);
         }
         UserTypes::Inactive(item) => {
-            println!("User status: {}", item.super_struct.status);
-            println!("User name: {}", item.super_struct.name);
-        }
-    }
-
-    let product_item = product_factory("Milk", 1.5, 10, AVAILABLE);
-    match product_item {
-        ProductStatusTypes::Available(item) => {
-            println!("Product status: {:?}", item.super_struct.status);
-            println!("Product name: {}", item.super_struct.name);
-            println!("Product price: {}", item.super_struct.price);
-            println!("Product quantity: {}", item.super_struct.quantity);
-        }
-        ProductStatusTypes::OutOfStock(item) => {
-            println!("Product status: {:?}", item.super_struct.status);
-            println!("Product name: {}", item.super_struct.name);
-            println!("Product price: {}", item.super_struct.price);
-            println!("Product quantity: {}", item.super_struct.quantity);
+            item.get(&item.super_struct.name);
+            item.set_to_active(&item.super_struct.name);
         }
     }
 }

@@ -5,4 +5,7 @@ pub trait Edit {
     fn set_to_pending(&self, title: &str) {
         println!("{} is being set to pending", title);
     }
+    fn set_to_active(&self, name: &str) {
+        println!("{} is being set to active", name);
+    }
 }
