@@ -8,6 +8,16 @@ pub enum UserStatus {
     ACTIVE,
     INACTIVE
 }
+#[derive(Debug)]
+pub enum PostStatus{
+    PUBLISHED,
+    DRAFT
+}
+#[derive(Debug)]
+pub enum ProductStatus{
+    AVAILABLE,
+    OUT_OF_STOCK
+}
 impl UserStatus{
     pub fn to_string(&self) -> String{
         match self{
@@ -15,7 +25,6 @@ impl UserStatus{
             &Self::INACTIVE => "INACTIVE".to_string()
         }
     }
-
 }
 impl fmt::Display for UserStatus{
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
