@@ -9,8 +9,9 @@ use crate::to_do::users::inactive::Inactive;
 pub mod structs;
 pub mod enums;
 pub mod users;
-mod posts;
-mod products;
+pub mod posts;
+pub mod products;
+pub mod traits;
 
 pub enum ItemTypes {
     Pending(Pending),
